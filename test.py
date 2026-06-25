@@ -12,7 +12,7 @@ UNK = "<unk>"
 MAX_LEN = 50
 
 
-# ---------------- ENCODE ----------------
+
 def encode(sentence, vocab):
     tokens = [SOS] + sentence.strip().split() + [EOS]
     ids = [vocab.get(tok, vocab[UNK]) for tok in tokens]
@@ -21,7 +21,7 @@ def encode(sentence, vocab):
     return torch.tensor(ids)
 
 
-# ---------------- LOAD MODEL ----------------
+
 checkpoint = torch.load("transformer.pt", map_location=DEVICE)
 
 src_vocab = checkpoint["src_vocab"]
@@ -37,7 +37,7 @@ model.load_state_dict(checkpoint["model"])
 model.eval()
 
 
-# ---------------- BEAM SEARCH ----------------
+
 def beam_search(model, src, beam_size=5, max_len=50):
     src = src.to(DEVICE)
 
@@ -82,7 +82,7 @@ def beam_search(model, src, beam_size=5, max_len=50):
     return beams[0][0]
 
 
-# ---------------- DECODE ----------------
+
 def decode(seq):
     words = []
 
@@ -97,7 +97,7 @@ def decode(seq):
     return words
 
 
-# ---------------- DATASET ----------------
+
 class TranslationDataset(Dataset):
     def __init__(self, src_file, tgt_file, src_vocab, tgt_vocab):
         with open(src_file, encoding="utf-8") as f:
@@ -118,7 +118,7 @@ class TranslationDataset(Dataset):
         return src, tgt
 
 
-# ---------------- TEST DATA ----------------
+
 test_dataset = TranslationDataset(
     "test.en",
     "test.de",
@@ -129,7 +129,7 @@ test_dataset = TranslationDataset(
 test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
 
-# ---------------- RUN INFERENCE ----------------
+
 print("\n=== SAMPLE TRANSLATIONS ===\n")
 
 for i, (src, tgt) in enumerate(test_loader):
@@ -147,7 +147,7 @@ for i, (src, tgt) in enumerate(test_loader):
         break
 
 
-# ---------------- OPTIONAL: BLEU ----------------
+
 try:
     from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 
