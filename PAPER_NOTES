@@ -1,0 +1,74 @@
+# PAPER_NOTES.md
+
+## Paper
+
+**Attention Is All You Need**
+Ashish Vaswani et al., 2017
+
+---
+
+## Main Claim
+
+The paper introduces the Transformer architecture, which relies entirely on attention mechanisms instead of recurrent or convolutional networks for sequence-to-sequence tasks. This improves parallelization, reduces training time, and achieves better translation performance.
+
+---
+
+## Method Used
+
+The implemented model follows the Transformer encoder-decoder architecture and includes:
+
+* Positional Encoding
+* Multi-Head Self Attention
+* Encoder Layers
+* Decoder Layers
+* Feed Forward Networks
+* Residual Connections
+* Layer Normalization
+* Beam Search Decoding
+
+The model was trained for English-to-German translation using the Multi30k dataset.
+
+---
+
+## Dataset
+
+Multi30k English-German Translation Dataset
+
+* Training Sentences: ~29,000
+* Validation Sentences: ~1,014
+* Test Sentences: ~1,000
+
+---
+
+## Training Configuration
+
+* Framework: PyTorch
+* Optimizer: Adam
+* Loss Function: Cross Entropy Loss
+* Batch Size: 32
+* Epochs: 10
+* Hardware: NVIDIA T4 GPU
+
+---
+
+## Evaluation Metrics
+
+### Training Loss
+
+Training Loss measures how well the model learns translation patterns from the training dataset. A lower training loss indicates that the model is successfully minimizing prediction errors during training.
+
+### Validation Loss
+
+Validation Loss evaluates the model on unseen validation data. It is used to assess generalization performance and detect overfitting.
+
+### BLEU Score
+
+BLEU (Bilingual Evaluation Understudy) is the standard evaluation metric for machine translation. It compares generated translations with reference translations and measures translation quality using n-gram overlap.
+
+---
+
+## Why These Metrics Were Used
+
+* **Training Loss** was used to monitor learning progress during training.
+* **Validation Loss** was used to evaluate the model's ability to generalize to unseen data.
+* **BLEU Score** was used because it is the standard benchmark metric for machine translation systems and provides a quantitative measure of translation quality.
