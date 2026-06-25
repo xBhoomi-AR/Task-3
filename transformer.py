@@ -250,9 +250,7 @@ class DecoderBlock(nn.Module):
         encoder_output
     ):
 
-        # ---------------------------
-        # 1. Masked Self Attention
-        # ---------------------------
+       
         masked_output = self.masked_attention(
             x,
             x,
@@ -263,9 +261,7 @@ class DecoderBlock(nn.Module):
             x + self.dropout(masked_output)
         )
 
-        # ---------------------------
-        # 2. Encoder-Decoder Attention
-        # ---------------------------
+      
         cross_output = self.cross_attention(
             x,
             encoder_output,
@@ -276,9 +272,8 @@ class DecoderBlock(nn.Module):
             x + self.dropout(cross_output)
         )
 
-        # ---------------------------
-        # 3. Feed Forward
-        # ---------------------------
+        
+       
         ff_output = self.feed_forward(x)
 
         x = self.norm3(
@@ -336,29 +331,21 @@ class Transformer(nn.Module):
 
     def forward(self, src, tgt):
 
-    # ======================
-    # Source Embedding
-    # ======================
+    
       src = self.src_embedding(src)
       src = self.positional_encoding(src)
 
-    # ======================
-    # Target Embedding
-    # ======================
+    
       tgt = self.tgt_embedding(tgt)
       tgt = self.positional_encoding(tgt)
 
-    # ======================
-    # Encoder
-    # ======================
+   
       enc_output = src
 
       for enc_layer in self.encStack:
           enc_output = enc_layer(enc_output)
 
-    # ======================
-    # Decoder
-    # ======================
+    
       dec_output = tgt
 
       for dec_layer in self.decStack:
@@ -367,9 +354,7 @@ class Transformer(nn.Module):
               enc_output
           )
 
-    # ======================
-    # Output Projection
-    # ======================
+   
       output = self.finalLinear(dec_output)
 
       return output
